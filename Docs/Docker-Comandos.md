@@ -26,6 +26,8 @@
 | docker ps                    | Exibe todos os containers em execução no momento.                           |
 | docker ps -a                 | Exibe todos os containers, independentemente de estarem em execução ou não. |
 
+| docker ps -a --format "table {{.ID}}\t{{.Image}}\t{{.Names}}" | Para consultar e formatar a aída das informações | 
+
 
 ## **Comandos relacionados à execução**
 | Comando                                                                 | Descrição                                                                         
