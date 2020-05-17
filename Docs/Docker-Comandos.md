@@ -2,7 +2,7 @@
 
 
 ## **FLAGS**
-| Flag |             | Descrição                                                 |
+| Flag |  Name       | Descrição                                                 |
 |------|-------------|---------------------------------------------------------- |
 | -d   | detach      | Executa o container em background                         |
 | -P   | publish-all | Atribui portas aleatória para o mapeamento host:container |

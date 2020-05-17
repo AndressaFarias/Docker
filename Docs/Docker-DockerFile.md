@@ -19,7 +19,7 @@ O nome do arquivo pode ser _Dockerfile_ ou _id.dockerfile_, essa segunda opção
 
 Geralmente, montamos as nossas imagens a partir de uma imagem já existente. Para dizer a imagem-base que queremos, utilizamos a palavra `FROM` mais o nome da imagem.
     
-    FROM node
+   FROM node
 
 Podemos indicar a versão da imagem que queremos utilizar ou indicar latest, que faz referência à versão mais recente da imagem. 
 Se não passarmos versão nenhuma, o Docker irá assumir que queremos o latest.
@@ -126,3 +126,33 @@ E no próprio Dockerfile, podemos utilizar essa variável:
 E como modificamos o Dockerfile, precisamos construir a nossa imagem novamente e podemos perceber que dessa vez o comando é bem mais rápido, já que quase todas as camadas estão cacheadas pelo Docker.
 
 Agora que criamos a imagem, vamos disponibilizá-la para outras pessoas. E é isso que veremos no próximo vídeo.
+
+## Quando usar ADD ou COPY
+A aplicção do _ADD_ ou do  _COPY_ irá depender do que se quer transferir para o container. De acordo com essa resposta no [SOen](https://stackoverflow.com/questions/24958140/what-is-the-difference-between-the-copy-and-add-commands-in-a-dockerfile/24958548#24958548), a maior diferença do método _ADD_ para o _COPY_ é:
+* Método _ADD_ permite que o atributo SRC seja uma URL;
+* Se o arquivo informado no atributo SRC do método _ADD_ possuir um formato de compressão reconhecido, ele será descoprimido. [2]
+
+## As melhores práticas para escrever um _Dockerfile_
+O Docker cria imagens automaticamente, lendo as instruções de um Dockerfilearquivo de texto que contém todos os comandos, em ordem, necessários para criar uma determinada imagem.
+
+Cada instrução cria uma camada:
+
+~~~yml
+   FROM ubuntu:18.04
+   COPY . /app
+   RUN make /app
+   CMD python /app/app.py
+~~~
+
+* **FROM** cria uma camada da ubuntu:18.04 imagem do Docker.
+* **COPY** adiciona arquivos do diretório atual do seu cliente Docker.
+* **RUN** constrói seu aplicativo com make.
+* **CMD** especifica qual comando executar dentro do contêiner.
+
+Ao executar uma imagem e gerar um contêiner, você adiciona uma nova camada gravável (a "camada contêiner") na parte superior das camadas subjacentes.
+
+
+# Referencias
+[1] Alura
+[2] https://pt.stackoverflow.com/questions/202406/quando-usar-add-ou-copy-para-copiar-arquivos-em-um-dockerfile 
+[3] [Best practices for writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#add-or-copy)
