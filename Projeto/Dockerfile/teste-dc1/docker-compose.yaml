@@ -1,0 +1,14 @@
+version: "3"
+services:
+  malu:
+    build:
+      context: ../teste-dc1/app/
+      dockerfile: Dockerfile
+    image: maluepedrocas:${IMAGE_TAG}
+    container_name: malucaPedrocas
+  panqueca:
+    build:
+      context: ../teste-dc1/app/
+      dockerfile: Dockerfile
+    image: pedrocas:${IMAGE_TAG}
+    container_name: Pedrocas
