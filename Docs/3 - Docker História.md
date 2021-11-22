@@ -1,30 +1,24 @@
 # DOCKER
 
-## Introdução ao Docker
+# ANTIGAMENTE
 
-**ANTIGAMENTE**
+Várias aplicações, vários servidores.
 
-Várias aplicações , vários servidores
+Era comum que cada aplicação ficasse em um servidor físico diferente. 
+Para que essas aplicações pudessem ser instaladas era preciso: 
+   - Primeiro, instalar em cada um dos servidores o respectivo SO (Sistema Operacional);
+   - Também era preciso que hauvesse a comunicação entre esse servidores- o que demanda a criação de uma rede;
+   - Pensando também que para o funcionamento dos servidores era preciso energia elétrica, quanto mais serviores físicos mais gasto com energia;
+O processo de provisionamento era lento, pois para cada nova aplicação era necessário comprar/montar uma servidor físico, instalar o SO, configurá-lo e subir a aplicação.
 
-Era comum que cada aplicação necessáriapara possibilidar a execução de nossa aplicação ficasse em um servidor físico diferente. 
-
-Para que essas aplicações posam ser instaladas é preciso antes, instalar em cada um dos servidores o respectivo SO (Sistema Operacional).
-
-Também é preciso que haja a comunicação entre esse servidores, o que demanda a criaão de uma rede.
-
-Pensando também que para o funcionamento dos servidores é precio energia elétrica, quanto mais serviores físicos mais gasto com energia.
-
-O processo de provisionamento era lento, pois cadanova aplicação era necessário comprar / montar o servidor físico, instalar o SO e configurá-lo e subir a aplicação.
-
-**Capacidade Pouco Aproveitada**
-Esse modelo de arquitetura tornava comum termo servidores parrudos, com uma única aplicação sndo executada, para normalmente ficarem funcionando abaixo da sua capacidade, para que quando fosse necessário, o servidor suportar uma grande quantidade de acessos. 
+## Capacidade Pouco Aproveitada
+Esse modelo de arquitetura tornava comum haver servidores parrudos com uma única aplicação sendo executada. Normalmente ficavam funcionando abaixo da sua capacidade, para que quando fosse necessário o servidor pudesse suportar uma grande quantidade de acessos. 
 
 Isso resultava em muita capacidade ociosa nos servidores, com muitos recursos desperdiçados.
 
 
-**VIRTUALIZAÇÃO**
-Após o advento da tecnologia chamada de _Hypervisor_, foam possiveis as máquinas virtuais. 
-
+# VIRTUALIZAÇÃO
+Após o advento da tecnologia chamada de _Hypervisor_, foram possiveis as máquinas virtuais.
 As máquinas virtuais tinham o intuito de reduzir o alto tempo e custo de executar aplicações em servidores físicos.
 
 ![Estrutura Máquin Virtual](https://i2.wp.com/opensourceforu.com/wp-content/uploads/2016/02/Figure-2.png)
@@ -37,36 +31,63 @@ Se temos uma VM acessando apenas uma parte do nosso hardware é possivel colocar
 
 Desta forma, reduzimos a quantidade de servidores e consequentemente os custos com luz e rede. Além disso, dividimos melhor o nosso hardware, aproveitando melhor os seus recursos e diminuindo a ociosidade.
 
-**Problemas das Máquias Virtuais**
+## Problemas das Máquias Virtuais
 
-O uso de máquina virtuais resolve os problemas alto indice de ociosidade nos servidores e redução n quantidade de servidores necessários para disponibilização do noo ambiente. Porém as VMs também possuem problemas. Para podermos hospedar a nossa aplicação em uma máquina virtual, também precisamos instalar um sistema operacional nela:
+O uso de máquina virtuais resolve os problemas alto indice de ociosidade nos servidores e redução na quantidade de servidores necessários para disponibilização do nosso ambiente. 
+
+Porém as VMs também possuem problemas. Para podermos hospedar a nossa aplicação em uma máquina virtual também precisamos instalar um sistema operacional nela:
 
 ![VMs com Aplicações](https://www.researchgate.net/profile/Umar_Farooq_Minhas/publication/242077512/figure/fig2/AS:282710602993666@1444414868359/Hosted-Virtual-Machine-Architecture.png)
 
-Cada aplicação necessita de um SO para poder ser executada e esses sistemas podem ser diferentes do SO que está instaldo no servidor físico. 
+Cada aplicação necessita de um SO para poder ser executada e esses sistemas podem ser diferentes do SO que está instaldo no servidor físico.
 
-Os SOs possuem custo de memória RAM, disco e processamento. Ou seja, precisamos de uma capacidade mínima para manter as funcionalidades de um SO, aumentando o seu custo de manutenção a cada sistema que tivermos.
+Os SOs possuem custo de memória RAM, disco e processamento, ou seja, precisamos de uma capacidade mínima para manter as funcionalidades de um SO, aumentando o seu custo de manutenção a cada sistema que tivermos.
 
 Além disso, há um custo de configuração, isto é, liberar portas, instalar alguma biblioteca específica, etc.
 
-**CONTAINER**
+# CONTAINER 
 
-Um container funcionará junto do nosso SO base e conterá a nossa aplicação. Criamos um container para cada aplicação, e esses containers vão dividir as funcionalidades do sistema operacional:
+## O que é Container?***
+Forma de fazer isolamento.
+
+Isolamento lógico
+    Isolamento de processos
+        Isolamento de network, temos a eth0 do container assim como temos no host,
+        Usuários, 
+        mountpoint ...
+            REALIZADO PELOS NAMESPACES
+
+Isolamento "físico" / recursos 
+    CPU
+    memória,
+    I/O
+    Disco
+        REALIZADO PELOS CGROUP
+
+
+Container é antes do Docker.
+chroot é o avô do Docker.
+LXC == linux Container (Docker é baseado em LXC)
+
+Um container funcionará junto do nosso SO base e conterá a nossa aplicação. 
+Criamos um container para cada aplicação e esses containers vão dividir as funcionalidades do sistema operacional:
 
 ![Docker Contaner Architecture](https://www.researchgate.net/profile/Babak_Bashari_Rad/publication/318816158/figure/fig3/AS:522470562201600@1501578097383/Docker-Container-architecture-11.png)
 
-Não temos mais um sistema operacional para cada aplicação, já que agora as aplicações estão dividindo o mesmo sistema operacional. 
+Não temos mais um sistema operacional para cada aplicação, já que agora as aplicações estão dividindo o mesmo sistema operacional.
 
-**Vantagens de um container**
+## Vantagens de um container
 
-O Contaier é muito mais leve que a VM por compartilhar o SO do host. Por ser mais leve o container é mais rápido de inicializar. 
+O Contaier é muito mais leve que a VM por compartilhar o SO do host. 
+Por ser mais leve o container é mais rápido de inicializar.
 
-**O QUE É O DOCKER?**
+# O QUE É O DOCKER?**
 
 *Docker, Inc.*
-A Docker, Inc. no início era chamada de _dotCloud_, ela era uma empresa de PaaS (**P**latform **a**s **a** **Se**rvice). Inicialmente, para prover a parte de infraestrutura, a _dotCloud_ utilizava o Amazon Web Services (AWS), serviço que nos disponibiliza máquinas virtuais e físicas para trabalharmo, a _dotCloud_ introduziu o conceito de containers na hora de subir uma aplicação, dando origem ao Docker.
+A Docker, Inc. no início era chamada de _dotCloud_, ela era uma empresa de PaaS (**P**latform **a**s **a** **Se**rvice). 
+Inicialmente, para prover a parte de infraestrutura, a _dotCloud_ utilizava o Amazon Web Services (AWS), serviço que nos disponibiliza máquinas virtuais e físicas para trabalharmos, a _dotCloud_ introduziu o conceito de containers na hora de subir uma aplicação, dando origem ao Docker.
 
-**As tecnologias do Docker**
+## As tecnologias do Docker
 O Docker é uma coleção de tecnologias para facilitar o deploy e a execução das nossas aplicações. A sua principal tecnologia é a Docker Engine, a plataforma que segura os containers, fazendo o intermédio entre o sistema operacional.
 
 Outras tecnologias do Docker que facilitam a nossa vida:
@@ -75,9 +96,9 @@ Outras tecnologias do Docker que facilitam a nossa vida:
 - **Docker Hub**: é um repositório com mais de 250 mil imagens diferentes para os nossos containers;
 - **Docker Machine**: é uma ferramenta que nos permite gerenciar o Docker em um host virtual.
 
-**INSTALANDO O DOCKER**
+## INSTALANDO O DOCKER
 
-**Docker For Windows**
+### Docker For Windows
 
 Pre-Requisitos:
 - Arquietura 64 bits;
@@ -89,7 +110,7 @@ Instalação:
 - Acesso à página do Docker : https://www.docker.com/products/docker-desktop
 
 **UBUNTU**
-* Desitalar versões anteriores: 
+* Desistalar versões anteriores:
 
     `sudo apt-get remove docker docker-engine docker.io containerd runc`
 
@@ -98,8 +119,8 @@ Instalação:
     `sudo apt-get update`
 
     * Instale pacotes para permitir que o apt use um repositório sobre HTTPS:
-    
-    
+
+    ```shell
     sudo apt-get install \
     apt-transport-https \
     ca-certificates \
