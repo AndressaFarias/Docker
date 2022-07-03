@@ -4,51 +4,55 @@
 
 # NETWOKING DOCKER
 
-Normalmente uma aplicação é composta por diversas partes. Quando estamos trabalhando com containers, é comum separarmos cada uma dessas partes em um container específico, para cada cada container tenha apenas uma única responsabilidade.
+Normalmente uma aplicação é composta por diversas partes. Quando estamos trabalhando com containers, é comum separarmos cada uma dessas partes em um container específico, para que cada container tenha apenas uma única responsabilidade.
 
 ## **Redes com Docker**
 Por padrão, já existe uma default network. 
 
 Isso significa que, quando criamos os nossos containers, por padrão eles funcionam na mesma rede.
 
-### **Para verificar**
+redes padrão criados 
+* none : quando um container é criado nessa rede é indicado que esse container não terá nenhuma interface de rede. Ele ficará isolado.
+
+* bridge :
+
+* host : quando um container é criado nessa rede, é retirado todo o isolamento que existe entre a interface de rede do host e do container. utilizando o driver host usamos a mesma interface do host no container.
+
+## **Para verificar**
 
 1. Vamos subir um container com Ubuntu:
 
-    docker run -it ubuntu
+    `docker run -it ubuntu`
 
 2. Abrir outro terminal e verificar o id desse container
 
-    docker ps
+    `docker ps`
 
-3. Vamos inspecionr o container 
+3. Vamos inspecionar o container
 
-    docker inspect \<ID>.
+    `docker inspect <ID>`
 
 4.  Na saída desse comando, em _NetworkSettings_, vemos que o container está na rede padrão _bridge_, rede em que ficam todos os containers que criamos.
 
 5. Voltando ao terminal do container, e executamos o comando 
 
-    hostname -i 
-    
-    vemos o IP atribuído a ele pela rede local do Docker
+    `hostname -i`    vemos o IP atribuído a ele pela rede local do Docker
 
-Dentro dessa rede local, os containers podem se comunicar através desses IPs. 
+    Dentro dessa rede local, os containers podem se comunicar através desses IPs. 
 
-1. Para comprovar isso, vamos deixar esse container rodando e criar um novo:
+6. Para comprovar isso, vamos deixar esse container rodando e criar um novo:
+    `docker run -it ubuntu`
 
-    docker run -it ubuntu:16.04
+7. Vamos verificar o seu IP:
 
-2. Vamos verificar o seu IP:
+    `hostname -i`
 
-    hostname -i
+8. Voltamos ao primeiro container e instalamos o pacote `iputils-ping` para podermos executar o comando ping 
 
-3. Voltamos ao primeiro container e instalamos o pacote _iputils-ping_ para podermos executar o comando ping 
+    `apt-get update && apt-get install iputils-ping`
 
-    apt-get update && apt-get install iputils-ping
-
-4. Executamos o comando ping, passando para ele o IP do segundo container
-Assim, podemos ver que os containers estão conseguindo se comunicar entre eles.
+9. Executamos o comando ping, passando para ele o IP do segundo container
+   Assim, podemos ver que os containers estão conseguindo se comunicar entre eles.
 
 ## **Comunicação entre containers utilizando os seus nomes**
 

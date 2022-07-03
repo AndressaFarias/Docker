@@ -1,8 +1,5 @@
-\=============================
-    
-    **DOCKER HUB** 
+# **DOCKER HUB** 
 
-\=============================
 
 Para disponibilizar a imagem para outras pessoas, precisamos enviá-la para o Docker Hub.
 

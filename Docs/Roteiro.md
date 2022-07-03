@@ -1,20 +1,35 @@
-# Requisitos
-1 VM com 1 core e 2gb de ram
+# Módulo = 02 Os primeiros comandos
+## Aula = 07 Mapeamento portas
+```
+docker run -d -P dockersamples/static-site
+docker ps 
 
-# Passos
-1. Instalar o Docker : [About Docker CE](https://docs.docker.com/install)
-    * ` curl -fsSL https://get.docker.com | bash  `
+verificar a porta que está mapeado  container 
 
-2. Adicionar o user ao grupo docker, para que o memso possa gerenciar os usuários
-    * `  sudo usermod -aG docker usuario   `
+docker port <container-id>
 
-3. Execute os comandos inciiais 
-    * ` docker version `
-    * ` docker container ls `
+```
+
+# Módul = 0 Criando e compreendendod imagens
+## Aula = 05. Intruções Dockerfile
+
+```
+Baixar zip :: https://github.com/danielartine/alura-docker/blob/aula-3/app-exemplo.zip?raw=true
+```
+
+descompactar unzip <nomeArquivo>
 
 
-4. Criando o primeiro container
-    * ` docker container run -it hello-world`
+crie umDockerfil com as seguintes instruções
 
+```
+FROM node:14
+WORKDIR /app-node
+COPY . .
+RUN npm install
+ENTRYPOINT npm start
+```
 
-    ` `
+`docker build -t <nome-user-docker0hub>/app-node:1.0`
+
+`docker images`

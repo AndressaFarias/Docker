@@ -1,10 +1,11 @@
-## **DOCKERFILE** 
+# **DOCKERFILE** 
 
 O arquivo _Dockerfile_ é utilizado para definir os comandos para executar instalações complexas com características específicas a serem utilizadas pelo containers.
 
-Os principais comandos são FROM, MAINTAINER, COPY, WORKDIR, RUN, EXPOSE e ENTRYPOINT.
+Os principais comandos são `FROM`, `COPY`, `WORKDIR`, `RUN`, `EXPOSE` e `ENTRYPOINT`...
 
 Ao subir uma imagem criada através de um Dockerfile para o Docker Hub disponibilizamos para os todos os desenvolvedores.
+
 
 
 ## CONSTRUINDO NOSSA IMAGEM
@@ -15,16 +16,17 @@ Uma imagem é como se fosse uma receita de bolo. Então, precisamos criar a noss
 
 Criar dentro do nosso pojeto um arquivo Dockerfile
 
-O nome do arquivo pode ser _Dockerfile_ ou _id.dockerfile_, essa segunda opção é mais usada quando temos mais de um _Dockerfile_ por projeto.
+O nome do arquivo pode ser `Dockerfile` ou `id.dockerfile`, essa segunda opção é mais usada quando temos mais de um `Dockerfile` por projeto.
 
-Geralmente, montamos as nossas imagens a partir de uma imagem já existente. Para dizer a imagem-base que queremos, utilizamos a palavra `FROM` mais o nome da imagem.
+Geralmente, montamos as nossas imagens a partir de uma imagem já existente. 
+Para informar qual é a imagem-base que iremos usar utilizamos a instrução `FROM` seguida do nome da imagem.
     
-   FROM node
+   `FROM node`
 
 Podemos indicar a versão da imagem que queremos utilizar ou indicar latest, que faz referência à versão mais recente da imagem. 
 Se não passarmos versão nenhuma, o Docker irá assumir que queremos o latest.
 
-    FROM node:latest
+   `FROM node:latest`
 
 Outra instrução que é comum colocarmos é quem cuida, quem criou a imagem, através do comando `MAINTAINER`
 
@@ -32,7 +34,7 @@ Agora, especificamos o que queremos na imagem.
 
 Queremos colocar o nosso código dentro da imagem, então utilizarmos o comando `COPY`.
 
-Como queremos copiar tudo o que está dentro da pasta, vamos utilizar o `.` para copiar tudo que está na pasta do arquivo Dockerfile, e vamos copiar para /var/www.
+Como queremos copiar tudo o que está dentro da pasta, dentro do nosso host, vamos utilizar o `.` para copiar tudo que está na pasta do arquivo Dockerfile, e vamos copiar para /var/www.
 
    `COPY <origem> <destino>`
 
@@ -44,7 +46,8 @@ No projeto, já temos as dependências dentro da pasta `node_modules`, mas não 
 
 Agora, deletamos a pasta node_modules, para ela não ser copiada para o container. 
 
-Toda imagem possui um comando que é executado quando a mesma inicia, e o comando que utilizamos na aula anterior foi o `npm start`. Para isso, utilizamos o comando `ENTRYPOINT`, que executará o comando que quisermos assim que o container for carregado:
+Toda imagem possui um comando que é executado quando a mesma inicia, e o comando que utilizamos na aula anterior foi o `npm start`. 
+Para isso, utilizamos o comando `ENTRYPOINT`, que executará o comando que quisermos assim que o container for carregado:
 
    `ENTRYPOINT npm start`
 
